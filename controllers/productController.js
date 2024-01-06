@@ -1,11 +1,10 @@
-const { body, validationResult } = require("express-validator");
 const { Op } = require("sequelize");
 const Product = require("../models/product");
 const upload = require("../upload/upload");
 const express = require("express");
 const router = express.Router();
 
-const ITEMS_PER_PAGE = 1;
+const ITEMS_PER_PAGE = 10;
 
 router.get("/", async (req, res) => {
   try {
