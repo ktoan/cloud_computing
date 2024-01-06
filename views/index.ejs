@@ -42,9 +42,6 @@
                 <thead class="text-dark fs-4 bg-primary">
                   <tr>
                     <th class="border-bottom-0">
-                      <h6 class="fw-semibold mb-0 text-white">Id</h6>
-                    </th>
-                    <th class="border-bottom-0">
                       <h6 class="fw-semibold mb-0 text-white">Name</h6>
                     </th>
                     <th class="border-bottom-0">
@@ -65,11 +62,6 @@
                 <tbody>
                   <% products.forEach(product => { %>
                   <tr>
-                    <td class="border-bottom-0">
-                      <h6 class="fw-semibold mb-0 text-primary">
-                        <%= product.id %>
-                      </h6>
-                    </td>
                     <td class="border-bottom-0">
                       <p class="mb-0 fw-normal fw-bold text-info">
                         <%= product.name %>
