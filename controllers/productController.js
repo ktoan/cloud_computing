@@ -4,7 +4,7 @@ const upload = require("../upload/upload");
 const express = require("express");
 const router = express.Router();
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 5;
 
 router.get("/", async (req, res) => {
   try {
