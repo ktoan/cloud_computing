@@ -1,0 +1,136 @@
+<!-- views/products.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product List</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <div
+      class="page-wrapper d-flex align-items-center justify-content-center"
+      style="height: 100vh"
+      id="main-wrapper"
+      data-layout="vertical"
+      data-navbarbg="skin6"
+      data-sidebartype="full"
+      data-sidebar-position="fixed"
+      data-header-position="fixed"
+    >
+      <div class="col-8 d-flex align-items-stretch">
+        <div class="card w-100">
+          <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h5 class="card-title fw-semibold mb-4">Product list</h5>
+              <a href="/create"
+                ><button class="btn btn-primary">Create product</button></a
+              >
+            </div>
+            <form class="d-flex gap-2 mb-4">
+              <input
+                type="text"
+                placeholder="Search..."
+                name="keyword"
+                class="form-control"
+                value="<%=keyword%>"
+              />
+              <button type="submit" class="btn btn-info">Search</button>
+            </form>
+            <div class="table-responsive">
+              <table class="table text-nowrap mb-2 align-middle">
+                <thead class="text-dark fs-4 bg-primary">
+                  <tr>
+                    <th class="border-bottom-0">
+                      <h6 class="fw-semibold mb-0 text-white">Id</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                      <h6 class="fw-semibold mb-0 text-white">Name</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                      <h6 class="fw-semibold mb-0 text-white">Image</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                      <h6 class="fw-semibold mb-0 text-white">Brief</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                      <h6 class="fw-semibold mb-0 text-white">Price</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                      <h6 class="fw-semibold mb-0 text-white">Quantity</h6>
+                    </th>
+                  </tr>
+                </thead>
+                <% if (products.length > 0) { %>
+                <tbody>
+                  <% products.forEach(product => { %>
+                  <tr>
+                    <td class="border-bottom-0">
+                      <h6 class="fw-semibold mb-0 text-primary">
+                        <%= product.id %>
+                      </h6>
+                    </td>
+                    <td class="border-bottom-0">
+                      <p class="mb-0 fw-normal fw-bold text-info">
+                        <%= product.name %>
+                      </p>
+                    </td>
+                    <td class="border-bottom-0">
+                      <img
+                        class="rounded object-fit-cover"
+                        width="100"
+                        height="100"
+                        src="/images/products/<%= product.image %>"
+                        alt="<%= product.name %> Image"
+                      />
+                    </td>
+                    <td class="border-bottom-0">
+                      <p class="mb-0 fw-normal"><%= product.brief %></p>
+                    </td>
+                    <td class="border-bottom-0">
+                      <p class="mb-0 fw-normal text-info">
+                        $<%= product.price %>
+                      </p>
+                    </td>
+                    <td class="border-bottom-0">
+                      <p class="mb-0 fw-normal text-dark">
+                        <%= product.quantity %>
+                      </p>
+                    </td>
+                  </tr>
+                  <% }); %>
+                </tbody>
+                <% } else { %>
+                <tr class="d-flex justify-content-center align-items-center">
+                  <p>No products available.</p>
+                </tr>
+                <% } %>
+              </table>
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <% if (currentPage != 1) { %>
+                  <li class="page-item">
+                    <a class="page-link" href="?page=<%=currentPage - 1 %>"
+                      >Previous</a
+                    >
+                  </li>
+                  <%}%> <% for (let i = 1; i <= totalPages; i++) { %>
+                  <li class="page-item">
+                    <a class="page-link" href="?page=<%=i%>"><%= i %></a>
+                  </li>
+                  <% } %> <% if (currentPage < totalPages) { %>
+                  <li class="page-item">
+                    <a class="page-link" href="?page=<%=currentPage + 1 %>"
+                      >Next</a
+                    >
+                  </li>
+                  <%}%>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
