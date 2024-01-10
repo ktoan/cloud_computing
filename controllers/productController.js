@@ -3,6 +3,7 @@ const Product = require("../models/product");
 const upload = require("../upload/upload");
 const express = require("express");
 const router = express.Router();
+const cloudinary = require("../cloudinary/cloudinary");
 
 const ITEMS_PER_PAGE = 3;
 
@@ -61,7 +62,8 @@ router.post("/create", upload.single("image"), async (req, res) => {
     }
 
     if (req.file !== undefined) {
-      imageName = req.file.filename;
+      const result = await cloudinary.uploader.upload(req.file.path);
+      imageName = result.secure_url;
     }
 
     if (isPermitted) {
