@@ -1,6 +1,7 @@
 // index.js
 const express = require("express");
 const productController = require("./controllers/productController");
+const apiController = require("./controllers/apiController");
 const flash = require("express-flash");
 const session = require("express-session");
 const app = express();
@@ -21,6 +22,7 @@ app.use(
 app.use(flash());
 // Define routes
 app.use("/", productController);
+app.use("/api/v1", apiController);
 
 // Start the server
 app.listen(port, () => {
