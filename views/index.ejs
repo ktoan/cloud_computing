@@ -107,7 +107,9 @@
                     >
                   </li>
                   <%}%> <% for (let i = 1; i <= totalPages; i++) { %>
-                  <li class="page-item">
+                  <li
+                    class="page-item <% if (currentPage === i) { %>active<% } %>"
+                  >
                     <a class="page-link" href="?page=<%=i%>"><%= i %></a>
                   </li>
                   <% } %> <% if (currentPage < totalPages) { %>
