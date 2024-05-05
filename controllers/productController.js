@@ -20,6 +20,7 @@ router.get("/", async (req, res) => {
       name: {
         [Op.like]: `%${keyword}%`, // Case-insensitive search for product name
       },
+      isApproved: true,
     };
 
     // Fetch products based on the search condition

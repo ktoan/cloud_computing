@@ -27,6 +27,10 @@ const Product = sequelize.define("products", {
   quantity: {
     type: DataTypes.INTEGER,
   },
+  isApproved: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false, // Set a default value for the new attribute
+  },
   createdAt: {
     type: DataTypes.DATE,
   },
