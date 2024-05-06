@@ -15,26 +15,21 @@ router.get("/", async (req, res) => {
     // Extract keyword from query parameters
     const keyword = req.query.keyword || "";
 
-    // Define the condition for the search
-    const searchCondition = {
-      name: {
-        [Op.like]: `%${keyword}%`, // Case-insensitive search for product name
-      },
-      isApproved: true,
-    };
+    const sqlQuery = `
+    SELECT *
+    FROM Products
+    WHERE name LIKE '%${keyword}%'
+    AND isApproved = true
+    ORDER BY id DESC
+    LIMIT ${ITEMS_PER_PAGE}
+    OFFSET ${offset};
+  `;
 
-    // Fetch products based on the search condition
-    const { count, rows: products } = await Product.findAndCountAll({
-      where: searchCondition,
-      limit: ITEMS_PER_PAGE,
-      offset: offset,
-      order: [["id", "DESC"]],
-    });
+    // Execute the SQL query
+    const products = await sequelize.query(sqlQuery, { type: sequelize.QueryTypes.SELECT });
 
-    // const sqlSearch = `SELECT * FROM Products WHERE name LIKE '%${keyword}%' AND isApproved = true ORDER BY id DESC LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}`;
-
-    // const products = await sequelize.query(sqlSearch, { type: sequelize.QueryTypes.SELECT });
-
+    // Count total products (you can also count using another query)
+    const count = products.length;
 
     const totalPages = Math.ceil(count / ITEMS_PER_PAGE);
 
