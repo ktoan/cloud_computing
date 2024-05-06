@@ -15,25 +15,25 @@ router.get("/", async (req, res) => {
     // Extract keyword from query parameters
     const keyword = req.query.keyword || "";
 
-    // // Define the condition for the search
-    // const searchCondition = {
-    //   name: {
-    //     [Op.like]: `%${keyword}%`, // Case-insensitive search for product name
-    //   },
-    //   isApproved: true,
-    // };
+    // Define the condition for the search
+    const searchCondition = {
+      name: {
+        [Op.like]: `%${keyword}%`, // Case-insensitive search for product name
+      },
+      isApproved: true,
+    };
 
-    // // Fetch products based on the search condition
-    // const { count, rows: products } = await Product.findAndCountAll({
-    //   where: searchCondition,
-    //   limit: ITEMS_PER_PAGE,
-    //   offset: offset,
-    //   order: [["id", "DESC"]],
-    // });
+    // Fetch products based on the search condition
+    const { count, rows: products } = await Product.findAndCountAll({
+      where: searchCondition,
+      limit: ITEMS_PER_PAGE,
+      offset: offset,
+      order: [["id", "DESC"]],
+    });
 
-    const sqlSearch = `SELECT * FROM Products WHERE name LIKE '%${keyword}%' AND isApproved = true ORDER BY id DESC LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}`;
+    // const sqlSearch = `SELECT * FROM Products WHERE name LIKE '%${keyword}%' AND isApproved = true ORDER BY id DESC LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}`;
 
-    const products = await sequelize.query(sqlSearch, { type: sequelize.QueryTypes.SELECT });
+    // const products = await sequelize.query(sqlSearch, { type: sequelize.QueryTypes.SELECT });
 
 
     const totalPages = Math.ceil(count / ITEMS_PER_PAGE);
